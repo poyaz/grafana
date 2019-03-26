@@ -1,22 +1,20 @@
 // Libraries
-import _ from 'lodash';
-import $ from 'jquery';
-
+import { AnnotationEvent, DataQueryOptions, DataSourceApi } from '@grafana/ui/src/types';
+import { BackendSrv } from 'app/core/services/backend_srv';
+import * as dateMath from 'app/core/utils/datemath';
 // Services & Utils
 import kbn from 'app/core/utils/kbn';
-import * as dateMath from 'app/core/utils/datemath';
-import PrometheusMetricFindQuery from './metric_find_query';
-import { ResultTransformer } from './result_transformer';
-import PrometheusLanguageProvider from './language_provider';
-import { BackendSrv } from 'app/core/services/backend_srv';
+import { ExploreUrlState } from 'app/types/explore';
+import $ from 'jquery';
+import _ from 'lodash';
 import addLabelToQuery from './add_label_to_query';
-import { getQueryHints } from './query_hints';
+import PrometheusLanguageProvider from './language_provider';
 import { expandRecordingRules } from './language_utils';
-
+import PrometheusMetricFindQuery from './metric_find_query';
+import { getQueryHints } from './query_hints';
+import { ResultTransformer } from './result_transformer';
 // Types
 import { PromQuery } from './types';
-import { DataQueryOptions, DataSourceApi, AnnotationEvent } from '@grafana/ui/src/types';
-import { ExploreUrlState } from 'app/types/explore';
 
 export class PrometheusDatasource implements DataSourceApi<PromQuery> {
   type: string;
@@ -215,7 +213,7 @@ export class PrometheusDatasource implements DataSourceApi<PromQuery> {
       const { key, operator } = filter;
       let { value } = filter;
       if (operator === '=~' || operator === '!~') {
-        value = prometheusSpecialRegexEscape(value);
+        value = prometheusRegularEscape(value);
       }
       return addLabelToQuery(acc, key, value, operator);
     }, expr);
