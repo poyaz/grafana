@@ -127,15 +127,17 @@ export default function GraphTooltip(this: any, elem, dashboard, scope, getSerie
         yaxis = series.yaxis.n;
       }
 
-      results[yaxis].push({
-        value: value,
-        hoverIndex: hoverIndex,
-        color: series.color,
-        label: series.aliasEscaped,
-        time: pointTime,
-        distance: hoverDistance,
-        index: i,
-      });
+      if (value && value !== 0) {
+        results[yaxis].push({
+          value: value,
+          hoverIndex: hoverIndex,
+          color: series.color,
+          label: series.aliasEscaped,
+          time: pointTime,
+          distance: hoverDistance,
+          index: i,
+        });
+      }
     }
 
     // Contat the 3 sub-arrays

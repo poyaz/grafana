@@ -1,3 +1,9 @@
+# 6.0.2-18160987e
+
+### Features
+
+* **Graph**: Add show graph's value tooltip condition for null and is grate than zero value
+
 # 6.0.0-beta3 (unreleased)
 
 # 6.0.0-beta2 (2019-02-11)
